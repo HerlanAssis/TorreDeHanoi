@@ -3,6 +3,7 @@ package br.com.ifrn.ed.hanoi;
 import br.com.ifrn.ed.hanoi.stack.MyStack;
 
 /**
+ * Cria Três pilhas dinâmicas utilizadas para a resolução da torre de hánoi.
  *
  * @author Herlan & Sávio
  */
@@ -12,6 +13,9 @@ public class Hanoi {
     private long totalMovimentosRealizados;
     private long totalMovimentosNecessarios;
 
+    /**
+     * Contrutor padrão da classe hánoi.
+     */
     public Hanoi() {
         stackA = new MyStack<>();
         stackB = new MyStack<>();
@@ -62,80 +66,96 @@ public class Hanoi {
         return true;
     }
 
+    /**
+     * Obtém o valor da pilha A;
+     *
+     * @return stackA.
+     */
     public MyStack<Integer> getStackA() {
         return stackA;
     }
 
+    /**
+     * Obtém o valor da pilha B;
+     *
+     * @return stackB.
+     */
     public MyStack<Integer> getStackB() {
         return stackB;
     }
 
+    /**
+     * Obtém o valor da pilha C;
+     *
+     * @return stackC.
+     */
     public MyStack<Integer> getStackC() {
         return stackC;
     }
 
+    /**
+     * Obtém o cálculo do total de movimentos necessários para resolver a torre
+     * de hánoi.
+     *
+     * @return movimentosNecessarios.
+     */
     public long getTotalMovimentosNecessarios() {
         return this.totalMovimentosNecessarios;
     }
 
+    /**
+     * Obtém o total de movimentos realizados no processo de resolução da torre
+     * de hánoi.
+     *
+     * @return movimentosRealizados.
+     */
     public long getTotalMovimentosRealizados() {
         return totalMovimentosRealizados;
     }
 
+    /**
+     * Calcula o total de movimentos necessários para resolver a torre de hánoi
+     * com base no total de elemento da pilha principal.
+     *
+     * @param size
+     */
     private void setTotalElementosNecessarios(int size) {
         this.totalMovimentosNecessarios = (long) Math.pow(2, size) - 1;
     }
 
-    public void solve() {
-        totalMovimentosNecessarios = (long) Math.pow(2, stackA.size());
-        totalMovimentosRealizados = 0;
-        for (int i = 1; i < totalMovimentosNecessarios; i++) {
+    /**
+     * Resolve a torre de hánoi.
+     */
+    public void Resolver() {
+        setTotalElementosNecessarios(stackA.size());
+        for (int i = 1; i <= totalMovimentosNecessarios; i++) {
             switch (i % 3) {
                 case 1:
                     MoveHanoi(stackA, stackC);
-//                    if (stackA.isEmpty()) {
-//                        stackA.push(stackC.pop());
-//                    } else if (stackC.isEmpty()) {
-//                        stackC.push(stackA.pop());
-//                    } else if (stackA.peek() < stackC.peek()) {
-//                        stackC.push(stackA.pop());
-//                    } else {
-//                        stackA.push(stackC.pop());
-//                    }
                     break;
                 case 2:
                     MoveHanoi(stackA, stackB);
-//                    if (stackA.isEmpty()) {
-//                        stackA.push(stackB.pop());
-//                    } else if (stackB.isEmpty()) {
-//                        stackB.push(stackA.pop());
-//                    } else if (stackA.peek() < stackB.peek()) {
-//                        stackB.push(stackA.pop());
-//                    } else {
-//                        stackA.push(stackB.pop());
-//                    }
                     break;
                 case 0:
                     MoveHanoi(stackB, stackC);
-//                    if (stackB.isEmpty()) {
-//                        stackB.push(stackC.pop());
-//                    } else if (stackC.isEmpty()) {
-//                        stackC.push(stackB.pop());
-//                    } else if (stackC.peek() < stackB.peek()) {
-//                        stackB.push(stackC.pop());
-//                    } else {
-//                        stackC.push(stackB.pop());
-//                    }
                     break;
             }
             totalMovimentosRealizados++;
             System.out.println("STACK A: " + stackA);
             System.out.println("STACK B: " + stackB);
             System.out.println("STACK C: " + stackC);
-            System.out.println("MOV REALIZADOS: " + getTotalMovimentosRealizados()+"\n\n");
+            System.out.println("MOV REALIZADOS: " + getTotalMovimentosRealizados() + "\n\n");
         }
     }
 
+    /**
+     * Realiza o movimento entre duas pilhas, pilha de origem e pilha de
+     * destino. O movimento pode ser realizado de origem para destino e vice
+     * versa.
+     *
+     * @param stackOrigin pilha de origem.
+     * @param stackDesti pilha de destino.
+     */
     private static void MoveHanoi(MyStack<Integer> stackOrigin, MyStack<Integer> stackDesti) {
         if (stackOrigin.isEmpty()) {
             stackOrigin.push(stackDesti.pop());
