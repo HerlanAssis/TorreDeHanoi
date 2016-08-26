@@ -126,18 +126,18 @@ public class Hanoi {
     /**
      * Resolve a torre de hánoi.
      */
-    public void Resolver() {
+    public void resolver() {
         setTotalElementosNecessarios(stackA.size());
         for (int i = 1; i <= totalMovimentosNecessarios; i++) {
             switch (i % 3) {
                 case 1:
-                    MoveHanoi(stackA, stackC);
+                    moveHanoi(stackA, stackC);
                     break;
                 case 2:
-                    MoveHanoi(stackA, stackB);
+                    moveHanoi(stackA, stackB);
                     break;
                 case 0:
-                    MoveHanoi(stackB, stackC);
+                    moveHanoi(stackB, stackC);
                     break;
             }
             totalMovimentosRealizados++;
@@ -156,7 +156,7 @@ public class Hanoi {
      * @param stackOrigin pilha de origem.
      * @param stackDesti pilha de destino.
      */
-    private static void MoveHanoi(MyStack<Integer> stackOrigin, MyStack<Integer> stackDesti) {
+    private static void moveHanoi(MyStack<Integer> stackOrigin, MyStack<Integer> stackDesti) {
         if (stackOrigin.isEmpty()) {
             stackOrigin.push(stackDesti.pop());
         } else if (stackDesti.isEmpty()) {
@@ -165,6 +165,20 @@ public class Hanoi {
             stackOrigin.push(stackDesti.pop());
         } else {
             stackDesti.push(stackOrigin.pop());
+        }
+    }
+    
+    public void clearStacks(){
+        this.totalMovimentosNecessarios=0;
+        this.totalMovimentosRealizados=0;
+        while(!stackA.isEmpty()){
+            stackA.pop();
+        }
+        while(!stackB.isEmpty()){
+            stackB.pop();
+        }
+        while(!stackC.isEmpty()){
+            stackC.pop();
         }
     }
 }
