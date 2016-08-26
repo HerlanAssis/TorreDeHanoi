@@ -78,31 +78,73 @@ public class Hanoi {
         return this.totalMovimentosNecessarios;
     }
 
+    public long getTotalMovimentosRealizados() {
+        return totalMovimentosRealizados;
+    }
+
     private void setTotalElementosNecessarios(int size) {
         this.totalMovimentosNecessarios = (long) Math.pow(2, size) - 1;
     }
 
-    public static void solve(MyStack<Integer> stackA, MyStack<Integer> stackB, MyStack<Integer> stackC) {
-        if (stackA.size() % 2 == 0) {
-            if (stackA.isEmpty()) {
-                solve(stackB, stackA, stackC);
-            } else if (stackB.isEmpty()) {
-                stackB.push(stackA.pop());
-            } else if (stackA.peek() > stackB.peek()) {
-                solve(stackB, stackA, stackC);
-            } else {
-                stackB.push(stackA.pop());
+    public void solve() {
+        totalMovimentosNecessarios = (long) Math.pow(2, stackA.size());
+        totalMovimentosRealizados = 0;
+        for (int i = 1; i < totalMovimentosNecessarios; i++) {
+            switch (i % 3) {
+                case 1:
+                    MoveHanoi(stackA, stackC);
+//                    if (stackA.isEmpty()) {
+//                        stackA.push(stackC.pop());
+//                    } else if (stackC.isEmpty()) {
+//                        stackC.push(stackA.pop());
+//                    } else if (stackA.peek() < stackC.peek()) {
+//                        stackC.push(stackA.pop());
+//                    } else {
+//                        stackA.push(stackC.pop());
+//                    }
+                    break;
+                case 2:
+                    MoveHanoi(stackA, stackB);
+//                    if (stackA.isEmpty()) {
+//                        stackA.push(stackB.pop());
+//                    } else if (stackB.isEmpty()) {
+//                        stackB.push(stackA.pop());
+//                    } else if (stackA.peek() < stackB.peek()) {
+//                        stackB.push(stackA.pop());
+//                    } else {
+//                        stackA.push(stackB.pop());
+//                    }
+                    break;
+                case 0:
+                    MoveHanoi(stackB, stackC);
+//                    if (stackB.isEmpty()) {
+//                        stackB.push(stackC.pop());
+//                    } else if (stackC.isEmpty()) {
+//                        stackC.push(stackB.pop());
+//                    } else if (stackC.peek() < stackB.peek()) {
+//                        stackB.push(stackC.pop());
+//                    } else {
+//                        stackC.push(stackB.pop());
+//                    }
+                    break;
             }
-            solve(stackA, stackB, stackC);
-        } else if (stackC.isEmpty()) {
-            stackC.push(stackA.pop());
-            solve(stackA, stackB, stackC);
-        } else if (stackA.peek() > stackC.peek()) {
-
-        } else {
-            stackC.push(stackA.pop());
-            solve(stackA, stackB, stackC);
+            totalMovimentosRealizados++;
+            System.out.println("STACK A: " + stackA);
+            System.out.println("STACK B: " + stackB);
+            System.out.println("STACK C: " + stackC);
+            System.out.println("MOV REALIZADOS: " + getTotalMovimentosRealizados()+"\n\n");
         }
     }
 
+    private static void MoveHanoi(MyStack<Integer> stackOrigin, MyStack<Integer> stackDesti) {
+        if (stackOrigin.isEmpty()) {
+            stackOrigin.push(stackDesti.pop());
+        } else if (stackDesti.isEmpty()) {
+            stackDesti.push(stackOrigin.pop());
+        } else if (stackDesti.peek() < stackOrigin.peek()) {
+            stackOrigin.push(stackDesti.pop());
+        } else {
+            stackDesti.push(stackOrigin.pop());
+        }
+    }
 }
