@@ -1,17 +1,27 @@
 package br.com.ifrn.ed.hanoi;
 
 import br.com.ifrn.ed.hanoi.stack.MyStack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
 
 /**
  * Cria Três pilhas dinâmicas utilizadas para a resolução da torre de hánoi.
  *
  * @author Herlan & Sávio
  */
-public class Hanoi {
+public class Hanoi implements Runnable {
 
     private MyStack<Integer> stackA, stackB, stackC;
     private long totalMovimentosRealizados;
     private long totalMovimentosNecessarios;
+
+    //ListViews
+    private ListView poleA;
+    private ListView poleB;
+    private ListView poleC;
 
     /**
      * Contrutor padrão da classe hánoi.
@@ -123,6 +133,25 @@ public class Hanoi {
         this.totalMovimentosNecessarios = (long) Math.pow(2, size) - 1;
     }
 
+    public void listView(ListView listViewA, ListView listViewB, ListView listViewC) {
+        this.poleA = listViewA;
+        this.poleB = listViewB;
+        this.poleC = listViewC;
+
+        //resolver();
+    }
+
+    private void setItemsListView(ListView listView, MyStack stack) {
+        ObservableList<String> pole = FXCollections.observableArrayList();
+        MyStack<Integer> myStackA = MyStack.copy(stack);
+
+        while (!myStackA.isEmpty()) {
+            pole.add(String.valueOf(myStackA.pop()));
+        }
+
+        listView.setItems(pole);
+    }
+
     /**
      * Resolve a torre de hánoi.
      */
@@ -140,11 +169,22 @@ public class Hanoi {
                     moveHanoi(stackB, stackC);
                     break;
             }
-            totalMovimentosRealizados++;
-            System.out.println("STACK A: " + stackA);
-            System.out.println("STACK B: " + stackB);
-            System.out.println("STACK C: " + stackC);
-            System.out.println("MOV REALIZADOS: " + getTotalMovimentosRealizados() + "\n\n");
+            totalMovimentosRealizados++;           
+
+            setItemsListView(poleA, this.stackA);
+            setItemsListView(poleB, this.stackB);
+            setItemsListView(poleC, this.stackC);
+            
+            try {
+                Thread.sleep(1*1000);
+                
+                //System.out.println("STACK A: " + stackA);
+                //System.out.println("STACK B: " + stackB);
+                //System.out.println("STACK C: " + stackC);
+                //System.out.println("MOV REALIZADOS: " + getTotalMovimentosRealizados() + "\n\n");
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Hanoi.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -167,18 +207,20 @@ public class Hanoi {
             stackDesti.push(stackOrigin.pop());
         }
     }
-    
-    public void clearStacks(){
-        this.totalMovimentosNecessarios=0;
-        this.totalMovimentosRealizados=0;
-        while(!stackA.isEmpty()){
-            stackA.pop();
-        }
-        while(!stackB.isEmpty()){
-            stackB.pop();
-        }
-        while(!stackC.isEmpty()){
-            stackC.pop();
-        }
+
+    /**
+     * Reinicia os contadores de movimentos e limpa as pilhas.
+     */
+    public void clearStacks() {
+        this.totalMovimentosNecessarios = 0;
+        this.totalMovimentosRealizados = 0;
+        MyStack.clear(stackA);
+        MyStack.clear(stackB);
+        MyStack.clear(stackC);
+    }
+
+    @Override
+    public void run() {
+        resolver();
     }
 }

@@ -1,4 +1,5 @@
 package br.com.ifrn.ed.hanoi.stack;
+
 import java.util.EmptyStackException;
 
 /**
@@ -93,6 +94,38 @@ public class MyStack<T> implements Stack<T> {
             myStack.push(stack.pop());
         }
         return myStack;
+    }
+
+    /**
+     * Realiza a cópia de um pilha.
+     * @param stack pilha a ser copiada.
+     * @return cópia.
+     */
+    public static MyStack copy(MyStack stack) {
+        MyStack myStack = new MyStack();
+        Node aux;
+
+        if (!stack.isEmpty()) {
+            aux = stack.top;
+
+            while (aux != null) {
+                myStack.push(aux.getElement());
+                aux = aux.getProxNode();
+            }                        
+        }
+
+        return MyStack.reverse(myStack);
+    }
+
+    /**
+     * Escavia uma pilha de elementos.
+     *
+     * @param stack com elementos.
+     */
+    public static void clear(MyStack stack) {
+        while (!stack.isEmpty()) {
+            stack.pop();
+        }
     }
 
     /**

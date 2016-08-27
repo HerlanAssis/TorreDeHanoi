@@ -8,8 +8,6 @@ package br.com.ifrn.ed.hanoi.ui;
 import br.com.ifrn.ed.hanoi.Hanoi;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,7 +23,9 @@ import javafx.scene.control.TextField;
  */
 public class FXMLController implements Initializable {
 
-    Hanoi hanoi;
+    private Hanoi hanoi;
+    private Thread thread;
+
     @FXML
     private Label MoveTimes;
     @FXML
@@ -44,7 +44,6 @@ public class FXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         hanoi = new Hanoi();
     }
 
@@ -54,18 +53,11 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void btStart(ActionEvent event) {
-
         hanoi.clearStacks();
         hanoi.gerarElementos(Integer.parseInt(tfcapcity.getText()));
-        hanoi.resolver();
-        
-        ObservableList<String> stackA =FXCollections.observableArrayList();
-        
-        stackA.add("");
-        
-//        ObservableList<String> items = FXCollections.observableArrayList(
-//                "Single", "Double", "Suite", "Family App");
-        poleA.setItems(stackA);
-    }
+        hanoi.listView(poleA, poleB, poleC);
 
+        thread = new Thread(hanoi);                
+        thread.start();
+    }
 }
