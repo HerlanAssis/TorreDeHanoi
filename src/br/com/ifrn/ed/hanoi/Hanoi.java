@@ -1,10 +1,7 @@
 package br.com.ifrn.ed.hanoi;
 
 import br.com.ifrn.ed.hanoi.stack.MyStack;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.util.ArrayList;
 import javafx.scene.control.ListView;
 
 /**
@@ -12,7 +9,7 @@ import javafx.scene.control.ListView;
  *
  * @author Herlan & Sávio
  */
-public class Hanoi implements Runnable {
+public class Hanoi{
 
     private MyStack<Integer> stackA, stackB, stackC;
     private long totalMovimentosRealizados;
@@ -131,29 +128,15 @@ public class Hanoi implements Runnable {
      */
     private void setTotalElementosNecessarios(int size) {
         this.totalMovimentosNecessarios = (long) Math.pow(2, size) - 1;
-    }
-
-    public void listView(ListView listViewA, ListView listViewB, ListView listViewC) {
-        this.poleA = listViewA;
-        this.poleB = listViewB;
-        this.poleC = listViewC;
-
-        //resolver();
-    }
-
-    private void setItemsListView(ListView listView, MyStack stack) {
-        ObservableList<String> pole = FXCollections.observableArrayList();
-        MyStack<Integer> myStackA = MyStack.copy(stack);
-        while (!myStackA.isEmpty()) {
-            pole.add(String.valueOf(myStackA.pop()));
-        }
-        listView.setItems(pole);
-    }
+    }        
 
     /**
      * Resolve a torre de hánoi.
+     * @return array list de todos os passos.
      */
-    public void resolver() {
+    public ArrayList<StepsHanoi> resolver() {
+        ArrayList<StepsHanoi> arrayList = new ArrayList<>();
+
         setTotalElementosNecessarios(stackA.size());
         for (int i = 1; i <= totalMovimentosNecessarios; i++) {
             switch (i % 3) {
@@ -168,21 +151,9 @@ public class Hanoi implements Runnable {
                     break;
             }
             totalMovimentosRealizados++;
-            setItemsListView(poleA, this.stackA);
-            setItemsListView(poleB, this.stackB);
-            setItemsListView(poleC, this.stackC);
-
-            try {
-                Thread.sleep(1 * 1000);
-
-                //System.out.println("STACK A: " + stackA);
-                //System.out.println("STACK B: " + stackB);
-                //System.out.println("STACK C: " + stackC);
-                //System.out.println("MOV REALIZADOS: " + getTotalMovimentosRealizados() + "\n\n");
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Hanoi.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            arrayList.add(new StepsHanoi(stackA, stackB, stackC, totalMovimentosRealizados, totalMovimentosNecessarios));
         }
+        return arrayList;
     }
 
     /**
@@ -214,10 +185,5 @@ public class Hanoi implements Runnable {
         MyStack.clear(stackA);
         MyStack.clear(stackB);
         MyStack.clear(stackC);
-    }
-
-    @Override
-    public void run() {
-        resolver();
-    }
+    }   
 }

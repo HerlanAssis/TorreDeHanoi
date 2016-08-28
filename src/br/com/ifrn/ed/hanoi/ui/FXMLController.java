@@ -6,15 +6,16 @@ package br.com.ifrn.ed.hanoi.ui;
  * and open the template in the editor.
  */
 import br.com.ifrn.ed.hanoi.Hanoi;
+import br.com.ifrn.ed.hanoi.StepsHanoi;
+import br.com.ifrn.ed.hanoi.stack.MyStack;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -30,7 +31,7 @@ import javafx.scene.control.TextField;
 public class FXMLController implements Initializable {
 
     private Hanoi hanoi;
-    private Thread thread;
+    private ArrayList<StepsHanoi> stackArray;
 
     @FXML
     private Label MoveTimes;
@@ -61,10 +62,22 @@ public class FXMLController implements Initializable {
     private void btStart(ActionEvent event) {
         hanoi.clearStacks();
         hanoi.gerarElementos(Integer.parseInt(tfcapcity.getText()));
-        hanoi.listView(poleA, poleB, poleC);
-        
-        thread = new Thread(hanoi);
-        thread.start();
+        stackArray = hanoi.resolver();        
+
+        Task<Void> exampleTask = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                // Demais códigos...
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Alteração de componentes
+                    }
+                });
+                return null;
+            }
+        };
+        new Thread(exampleTask).start();
 
 //        ObservableList<String> pole = FXCollections.observableArrayList();
 //        for (int i = 0; i < 10; i++) {
@@ -88,5 +101,14 @@ public class FXMLController implements Initializable {
 //            }
 //        });
 //        new Thread(sleeper).start();
+    }
+
+    private void setItemsListView(ListView listView, MyStack stack) {
+        ObservableList<String> pole = FXCollections.observableArrayList();
+        MyStack<Integer> myStackA = MyStack.copy(stack);
+        while (!myStackA.isEmpty()) {
+            pole.add(String.valueOf(myStackA.pop()));
+        }
+        listView.setItems(pole);
     }
 }
