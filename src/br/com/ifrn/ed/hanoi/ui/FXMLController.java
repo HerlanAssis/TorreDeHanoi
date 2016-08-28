@@ -61,8 +61,9 @@ public class FXMLController implements Initializable {
         hanoi.clearStacks();
         hanoi.gerarElementos(Integer.parseInt(capacidade.getValue().toString()));
         stackArray = hanoi.resolver();
+
         MoveTimes.setText(hanoi.getTotalMovimentosRealizados()+" Movimentos");
-        
+
         Task<Void> exampleTask = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
@@ -73,9 +74,11 @@ public class FXMLController implements Initializable {
                             setItemsListView(poleA, stackArray.get(movAtual).getStackA());
                             setItemsListView(poleB, stackArray.get(movAtual).getStackB());
                             setItemsListView(poleC, stackArray.get(movAtual).getStackC());
-                            
+                            MoveTimes.setText("Movimentos Realizados: " + stackArray.get(movAtual).getTotalMovimentosRealizados());
+
                         }
                     });
+
                     
                     int tempo;
                     if (time.getValue().toString().equals("0.3")) {
@@ -86,6 +89,8 @@ public class FXMLController implements Initializable {
                         tempo=(Integer.parseInt(time.getValue().toString())*1000);
                     }
                     Thread.sleep(tempo);
+
+                    Thread.sleep((long) (Double.parseDouble(time.getValue().toString()) * 1000));
                 }
                 return null;
             }
@@ -95,22 +100,24 @@ public class FXMLController implements Initializable {
 
     /**
      * Realiza o set de items em um listView a partir e uma pilha;
+     *
      * @param listView a ser modificado;
      * @param stack de item a serem adicionados;
      */
     private void setItemsListView(ListView listView, MyStack stack) {
         ObservableList<Button> pole = FXCollections.observableArrayList();
         MyStack<Integer> myStackA = MyStack.copy(stack);
-        int valorDoBotao=0;
         while (!myStackA.isEmpty()) {
+
             Button bt= new Button();
-            valorDoBotao=myStackA.pop();
-            bt.setScaleX(valorDoBotao*0.95);
-            bt.setScaleY(valorDoBotao*0.125);
-            pole.add(0,bt);
+            
+            int valorBotao = myStackA.pop();
+
+            bt.setScaleX((double) valorBotao / Integer.parseInt(capacidade.getValue().toString()));
+
+            pole.add(0, bt);
         }
-        listView.setRotate(180);
+
         listView.setItems(pole);
-        
     }
 }
