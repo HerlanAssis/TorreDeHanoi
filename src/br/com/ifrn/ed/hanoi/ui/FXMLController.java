@@ -111,8 +111,9 @@ public class FXMLController implements Initializable {
             
             int valorBotao = myStackA.pop();
 
-            bt.setScaleX((double) valorBotao / Integer.parseInt(capacidade.getValue().toString()));
-
+            bt.setScaleX(valorBotao*0.95);
+            bt.setScaleY(valorBotao*0.125);
+            
             pole.add(0, bt);
         }
 
