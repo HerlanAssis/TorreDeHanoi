@@ -3,6 +3,7 @@ package br.com.ifrn.ed.hanoi.ui;
 import br.com.ifrn.ed.hanoi.Hanoi;
 import br.com.ifrn.ed.hanoi.PassosHanoi;
 import br.com.ifrn.ed.hanoi.stack.MyStack;
+import java.awt.Color;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -60,7 +61,7 @@ public class FXMLController implements Initializable {
         hanoi.clearStacks();
         hanoi.gerarElementos(Integer.parseInt(capacidade.getValue().toString()));
         stackArray = hanoi.resolver();
-        MoveTimes.setText(hanoi.getTotalMovimentosRealizados()+" Movimentos Realizados");
+        MoveTimes.setText(hanoi.getTotalMovimentosRealizados()+" Movimentos");
         
         Task<Void> exampleTask = new Task<Void>() {
             @Override
@@ -81,7 +82,7 @@ public class FXMLController implements Initializable {
                         tempo= 100;
                     }else if (time.getValue().toString().equals("0.5")){
                         tempo= 400;
-                    }else{
+                    }else {
                         tempo=(Integer.parseInt(time.getValue().toString())*1000);
                     }
                     Thread.sleep(tempo);
@@ -104,10 +105,8 @@ public class FXMLController implements Initializable {
         while (!myStackA.isEmpty()) {
             Button bt= new Button();
             valorDoBotao=myStackA.pop();
-            
-            bt.setScaleX(valorDoBotao*0.25);
+            bt.setScaleX(valorDoBotao*0.95);
             bt.setScaleY(valorDoBotao*0.125);
-            
             pole.add(0,bt);
         }
         listView.setRotate(180);

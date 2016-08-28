@@ -7,10 +7,11 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ifrn.ed.hanoi.ui.FXMLController">
    <bottom>
@@ -21,7 +22,7 @@
       </HBox>
    </bottom>
    <center>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <ListView fx:id="poleA" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme_1.css" />
             <ListView fx:id="poleB" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme_1.css" />
@@ -32,20 +33,24 @@
    <top>
       <VBox prefHeight="73.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" prefHeight="15.0" prefWidth="600.0" textAlignment="CENTER">
-               <font>
-                  <Font size="27.0" />
-               </font>
-            </Label>
-            <HBox prefHeight="49.0" prefWidth="600.0" spacing="10.0" stylesheets="@DarkTheme.css">
+            <HBox alignment="CENTER" prefHeight="90.0" prefWidth="600.0">
                <children>
-                  <Label fx:id="MoveTimes" prefHeight="19.0" prefWidth="257.0" text="Quantidade de Movimentos">
+                  <ImageView fitHeight="84.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="49.0" prefWidth="600.0" spacing="10.0" stylesheets="@DarkTheme_1.css">
+               <children>
+                  <Label fx:id="MoveTimes" prefHeight="19.0" prefWidth="166.0" text="Movimentos">
                      <padding>
                         <Insets left="20.0" />
                      </padding>
                   </Label>
-                  <Label prefHeight="19.0" prefWidth="109.0" text="Visualizaçao:" />
-                  <ComboBox fx:id="time" prefHeight="26.0" prefWidth="81.0" stylesheets="@DarkTheme.css">
+                  <Label prefHeight="19.0" prefWidth="139.0" text="Visualizaçao (s):" />
+                  <ComboBox fx:id="time" prefHeight="26.0" prefWidth="85.0" stylesheets="@DarkTheme_1.css">
                       <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="0.3" />
@@ -55,8 +60,8 @@
                         </FXCollections>
                       </items>
                   </ComboBox>
-                  <Label prefHeight="19.0" prefWidth="89.0" text="Nº Pinos:" />
-                  <ComboBox fx:id="capacidade" prefHeight="26.0" prefWidth="80.0" stylesheets="@DarkTheme.css">
+                  <Label prefHeight="19.0" prefWidth="82.0" text="Nº Pinos:" />
+                  <ComboBox fx:id="capacidade" prefHeight="26.0" prefWidth="92.0" stylesheets="@DarkTheme_1.css">
                       <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="4" />
@@ -69,7 +74,6 @@
                   </ComboBox>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" />
          </children>
       </VBox>
    </top>
