@@ -1,12 +1,7 @@
 package br.com.ifrn.ed.hanoi.ui;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import br.com.ifrn.ed.hanoi.Hanoi;
-import br.com.ifrn.ed.hanoi.StepsHanoi;
+import br.com.ifrn.ed.hanoi.PassosHanoi;
 import br.com.ifrn.ed.hanoi.stack.MyStack;
 import java.net.URL;
 import java.util.ArrayList;
@@ -31,7 +26,8 @@ import javafx.scene.control.TextField;
 public class FXMLController implements Initializable {
 
     private Hanoi hanoi;
-    private ArrayList<StepsHanoi> stackArray;
+    private ArrayList<PassosHanoi> stackArray;
+    private int movAtual;
 
     @FXML
     private Label MoveTimes;
@@ -62,47 +58,33 @@ public class FXMLController implements Initializable {
     private void btStart(ActionEvent event) {
         hanoi.clearStacks();
         hanoi.gerarElementos(Integer.parseInt(tfcapcity.getText()));
-        stackArray = hanoi.resolver();        
+        stackArray = hanoi.resolver();
 
         Task<Void> exampleTask = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                // Demais códigos...
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Alteração de componentes
-                    }
-                });
+                for (; movAtual < stackArray.size(); movAtual++) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            setItemsListView(poleA, stackArray.get(movAtual).getStackA());
+                            setItemsListView(poleB, stackArray.get(movAtual).getStackB());
+                            setItemsListView(poleC, stackArray.get(movAtual).getStackC());
+                        }
+                    });
+                    Thread.sleep(1000);
+                }
                 return null;
             }
         };
         new Thread(exampleTask).start();
-
-//        ObservableList<String> pole = FXCollections.observableArrayList();
-//        for (int i = 0; i < 10; i++) {
-//            pole.add(i + "");
-//        }
-//
-//        Task<Void> sleeper = new Task<Void>() {
-//            @Override
-//            protected Void call() throws Exception {
-//                try {
-//                    Thread.sleep(1000);
-//                } catch (InterruptedException e) {
-//                }
-//                return null;
-//            }
-//        };
-//        sleeper.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-//            @Override
-//            public void handle(WorkerStateEvent event) {
-//                
-//            }
-//        });
-//        new Thread(sleeper).start();
     }
 
+    /**
+     * Realiza o set de items em um listView a partir e uma pilha;
+     * @param listView a ser modificado;
+     * @param stack de item a serem adicionados;
+     */
     private void setItemsListView(ListView listView, MyStack stack) {
         ObservableList<String> pole = FXCollections.observableArrayList();
         MyStack<Integer> myStackA = MyStack.copy(stack);

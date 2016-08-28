@@ -9,7 +9,7 @@ import javafx.scene.control.ListView;
  *
  * @author Herlan & Sávio
  */
-public class Hanoi{
+public class Hanoi {
 
     private MyStack<Integer> stackA, stackB, stackC;
     private long totalMovimentosRealizados;
@@ -128,17 +128,24 @@ public class Hanoi{
      */
     private void setTotalElementosNecessarios(int size) {
         this.totalMovimentosNecessarios = (long) Math.pow(2, size) - 1;
-    }        
+    }
 
     /**
      * Resolve a torre de hánoi.
-     * @return array list de todos os passos.
+     *
+     * @return ArrayList de todos os passos.
      */
-    public ArrayList<StepsHanoi> resolver() {
-        ArrayList<StepsHanoi> arrayList = new ArrayList<>();
+    public ArrayList<PassosHanoi> resolver() {
+        ArrayList<PassosHanoi> arrayList = new ArrayList<>();
 
         setTotalElementosNecessarios(stackA.size());
         for (int i = 1; i <= totalMovimentosNecessarios; i++) {
+            
+            arrayList.add(new PassosHanoi(MyStack.copy(stackA),
+                    MyStack.copy(stackB), MyStack.copy(stackC),
+                    totalMovimentosRealizados, totalMovimentosNecessarios)
+            );
+            
             switch (i % 3) {
                 case 1:
                     moveHanoi(stackA, stackC);
@@ -151,8 +158,12 @@ public class Hanoi{
                     break;
             }
             totalMovimentosRealizados++;
-            arrayList.add(new StepsHanoi(stackA, stackB, stackC, totalMovimentosRealizados, totalMovimentosNecessarios));
         }
+        //Capturando o ultimo estado
+        arrayList.add(new PassosHanoi(MyStack.copy(stackA),
+                MyStack.copy(stackB), MyStack.copy(stackC),
+                totalMovimentosRealizados, totalMovimentosNecessarios)
+        );
         return arrayList;
     }
 
@@ -185,5 +196,5 @@ public class Hanoi{
         MyStack.clear(stackA);
         MyStack.clear(stackB);
         MyStack.clear(stackC);
-    }   
+    }
 }
