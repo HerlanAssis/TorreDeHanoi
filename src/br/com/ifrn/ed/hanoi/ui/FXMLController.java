@@ -61,6 +61,9 @@ public class FXMLController implements Initializable {
         hanoi.clearStacks();
         hanoi.gerarElementos(Integer.parseInt(capacidade.getValue().toString()));
         stackArray = hanoi.resolver();
+        
+        //TOTAL DE MOVIMENTOS NECESSÁEIOS - > hanoi.getTotalMovimentosNecessarios();
+        //DEFINIR VALOR PADRÃO PARA O TEMPO E O TOTAL DE PINOS
 
         Task<Void> exampleTask = new Task<Void>() {
             @Override
@@ -76,17 +79,6 @@ public class FXMLController implements Initializable {
 
                         }
                     });
-
-                    
-                    int tempo;
-                    if (time.getValue().toString().equals("0.3")) {
-                        tempo= 100;
-                    }else if (time.getValue().toString().equals("0.5")){
-                        tempo= 400;
-                    }else {
-                        tempo=(Integer.parseInt(time.getValue().toString())*1000);
-                    }
-                    Thread.sleep(tempo);
 
                     Thread.sleep((long) (Double.parseDouble(time.getValue().toString()) * 1000));
                 }
@@ -107,13 +99,13 @@ public class FXMLController implements Initializable {
         MyStack<Integer> myStackA = MyStack.copy(stack);
         while (!myStackA.isEmpty()) {
 
-            Button bt= new Button();
-            
+            Button bt = new Button();
+
             int valorBotao = myStackA.pop();
 
-            bt.setScaleX(valorBotao*0.95);
-            bt.setScaleY(valorBotao*0.125);
-            
+            bt.setScaleX(valorBotao * 0.95);
+            bt.setScaleY(valorBotao * 0.125);
+
             pole.add(0, bt);
         }
 

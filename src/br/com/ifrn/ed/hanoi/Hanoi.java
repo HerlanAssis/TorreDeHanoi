@@ -143,7 +143,7 @@ public class Hanoi {
             
             arrayList.add(new PassosHanoi(MyStack.copy(stackA),
                     MyStack.copy(stackB), MyStack.copy(stackC),
-                    totalMovimentosRealizados, totalMovimentosNecessarios)
+                    totalMovimentosRealizados)
             );
             
             switch (i % 3) {
@@ -162,7 +162,7 @@ public class Hanoi {
         //Capturando o ultimo estado
         arrayList.add(new PassosHanoi(MyStack.copy(stackA),
                 MyStack.copy(stackB), MyStack.copy(stackC),
-                totalMovimentosRealizados, totalMovimentosNecessarios)
+                totalMovimentosRealizados)
         );
         return arrayList;
     }
