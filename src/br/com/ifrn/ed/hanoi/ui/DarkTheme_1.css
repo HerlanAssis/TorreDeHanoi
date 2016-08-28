@@ -1,0 +1,18 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 29/07/2016, 00:25:56
+    Author     : savio
+*/
+
+.list-cell {
+    -fx-alignment:CENTER;
+}
+
+.button {
+    -fx-margin:2;  
+    -fx-background-color: #1d1d1d;
+}
