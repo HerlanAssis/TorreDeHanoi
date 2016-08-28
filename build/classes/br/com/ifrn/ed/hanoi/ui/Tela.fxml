@@ -24,9 +24,9 @@
    <center>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="poleA" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme_1.css" rotate="180.0"  />
-            <ListView fx:id="poleB" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme_1.css" rotate="180.0"  />
-            <ListView fx:id="poleC" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme_1.css" rotate="180.0"  />
+            <ListView fx:id="poleA" prefHeight="200.0" prefWidth="200.0" rotate="180.0" stylesheets="@DarkTheme_1.css" />
+            <ListView fx:id="poleB" prefHeight="200.0" prefWidth="200.0" rotate="180.0" stylesheets="@DarkTheme_1.css" />
+            <ListView fx:id="poleC" prefHeight="200.0" prefWidth="200.0" rotate="180.0" stylesheets="@DarkTheme_1.css" />
          </children>
       </HBox>
    </center>
@@ -59,6 +59,9 @@
                             <String fx:value="2" />
                         </FXCollections>
                       </items>
+                      <value>
+                          <String fx:value="0.3" />
+                      </value>
                   </ComboBox>
                   <Label prefHeight="19.0" prefWidth="82.0" text="Nº Pinos:" />
                   <ComboBox fx:id="capacidade" prefHeight="26.0" prefWidth="92.0" stylesheets="@DarkTheme_1.css">
@@ -71,6 +74,9 @@
                             <String fx:value="64" />
                         </FXCollections>
                       </items>
+                      <value>
+                          <String fx:value="4" />
+                      </value>
                   </ComboBox>
                </children>
             </HBox>
