@@ -62,8 +62,6 @@ public class FXMLController implements Initializable {
         hanoi.gerarElementos(Integer.parseInt(capacidade.getValue().toString()));
         stackArray = hanoi.resolver();
 
-        MoveTimes.setText(hanoi.getTotalMovimentosRealizados()+" Movimentos");
-
         Task<Void> exampleTask = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
@@ -74,7 +72,7 @@ public class FXMLController implements Initializable {
                             setItemsListView(poleA, stackArray.get(movAtual).getStackA());
                             setItemsListView(poleB, stackArray.get(movAtual).getStackB());
                             setItemsListView(poleC, stackArray.get(movAtual).getStackC());
-                            MoveTimes.setText("Movimentos Realizados: " + stackArray.get(movAtual).getTotalMovimentosRealizados());
+                            MoveTimes.setText("Movimentos: " + stackArray.get(movAtual).getTotalMovimentosRealizados());
 
                         }
                     });

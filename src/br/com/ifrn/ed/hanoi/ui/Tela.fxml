@@ -24,9 +24,9 @@
    <center>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="poleA" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme_1.css" />
-            <ListView fx:id="poleB" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme_1.css" />
-            <ListView fx:id="poleC" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme_1.css" />
+            <ListView fx:id="poleA" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme_1.css" rotate="180.0"  />
+            <ListView fx:id="poleB" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme_1.css" rotate="180.0"  />
+            <ListView fx:id="poleC" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme_1.css" rotate="180.0"  />
          </children>
       </HBox>
    </center>
