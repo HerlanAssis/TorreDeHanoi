@@ -27,11 +27,11 @@ import javafx.scene.control.TextField;
  * @author savio
  */
 public class FXMLController implements Initializable {
-
+    
     private Hanoi hanoi;
     private ArrayList<PassosHanoi> stackArray;
     private int movAtual;
-
+    
     @FXML
     private Label MoveTimes;
     @FXML
@@ -54,14 +54,12 @@ public class FXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         hanoi = new Hanoi();
     }
-
-
+    
     @FXML
     private void btStart(ActionEvent event) {
         hanoi.clearStacks();
         hanoi.gerarElementos(Integer.parseInt(capacidade.getValue().toString()));
         stackArray = hanoi.resolver();
-        MoveTimes.setText(hanoi.getTotalMovimentosRealizados()+" Movimentos Realizados");
         
         Task<Void> exampleTask = new Task<Void>() {
             @Override
@@ -73,12 +71,11 @@ public class FXMLController implements Initializable {
                             setItemsListView(poleA, stackArray.get(movAtual).getStackA());
                             setItemsListView(poleB, stackArray.get(movAtual).getStackB());
                             setItemsListView(poleC, stackArray.get(movAtual).getStackC());
+                            MoveTimes.setText("Movimentos Realizados: " + stackArray.get(movAtual).getTotalMovimentosRealizados());
                             
                         }
                     });
-                    
-                    int tempo=(Integer.parseInt(time.getValue().toString())*1000);
-                    Thread.sleep(tempo);
+                    Thread.sleep((long) (Double.parseDouble(time.getValue().toString()) * 1000));
                 }
                 return null;
             }
@@ -88,6 +85,7 @@ public class FXMLController implements Initializable {
 
     /**
      * Realiza o set de items em um listView a partir e uma pilha;
+     *
      * @param listView a ser modificado;
      * @param stack de item a serem adicionados;
      */
@@ -95,11 +93,12 @@ public class FXMLController implements Initializable {
         ObservableList<Button> pole = FXCollections.observableArrayList();
         MyStack<Integer> myStackA = MyStack.copy(stack);
         while (!myStackA.isEmpty()) {
-            Button bt= new Button(String.valueOf(myStackA.pop()));
-            pole.add(0,bt);
+            
+            Button bt = new Button(String.valueOf(myStackA.peek()));
+            bt.setScaleX((double)myStackA.pop() / Integer.parseInt(capacidade.getValue().toString()));
+            pole.add(bt);
         }
-        listView.setRotate(180);
-        listView.setItems(pole);
         
+        listView.setItems(pole);
     }
 }
