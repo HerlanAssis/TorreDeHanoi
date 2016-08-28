@@ -21,6 +21,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
 
 /**
  * FXML Controller class
@@ -32,6 +33,7 @@ public class FXMLController implements Initializable {
     private Hanoi hanoi;
     private ArrayList<PassosHanoi> stackArray;
     private int movAtual;
+    private final Color C1 = Color.YELLOW, C2 = Color.GREEN;  
 
     @FXML
     private Label MoveTimes;
@@ -105,10 +107,25 @@ public class FXMLController implements Initializable {
 
             bt.setScaleX(valorBotao * 0.95);
             bt.setScaleY(valorBotao * 0.125);
-
+            
+            bt.setStyle("-fx-background-color: "+gencode()+";");
             pole.add(0, bt);
         }
 
         listView.setItems(pole);
+    }
+    
+    static String gencode()
+    {
+        String[] letters = new String[15];
+        letters = "0123456789ABCDEF".split("");
+        String code ="#";
+        for(int i=0;i<6;i++)
+        {
+            double ind = Math.random() * 15;
+            int index = (int)Math.round(ind);
+            code += letters[index]; 
+        }
+        return code;
     }
 }
