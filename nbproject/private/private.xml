@@ -3,10 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/home/savio/Documentos/Estrutura%20de%20Dados/TorreDeHanoi/src/br/com/ifrn/ed/hanoi/ui/DarkTheme_1.css</file>
             <file>file:/home/savio/Documentos/Estrutura%20de%20Dados/TorreDeHanoi/src/br/com/ifrn/ed/hanoi/ui/FXMLController.java</file>
             <file>file:/home/savio/Documentos/Estrutura%20de%20Dados/TorreDeHanoi/src/br/com/ifrn/ed/hanoi/ui/DarkTheme.css</file>
             <file>file:/home/savio/Documentos/Estrutura%20de%20Dados/TorreDeHanoi/src/br/com/ifrn/ed/hanoi/ui/Tela.fxml</file>
+=======
+            <file>file:/home/herlan/NetBeansProjects/TorreDeHanoi/src/br/com/ifrn/ed/hanoi/ui/FXMLController.java</file>
+>>>>>>> f44d624f8d23995e0b2669f185eac9bc99d51532
         </group>
     </open-files>
 </project-private>

@@ -3,7 +3,6 @@ package br.com.ifrn.ed.hanoi.ui;
 import br.com.ifrn.ed.hanoi.Hanoi;
 import br.com.ifrn.ed.hanoi.PassosHanoi;
 import br.com.ifrn.ed.hanoi.stack.MyStack;
-import java.awt.Color;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -14,15 +13,10 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
-
 /**
  * FXML Controller class
  *
@@ -33,7 +27,8 @@ public class FXMLController implements Initializable {
     private Hanoi hanoi;
     private ArrayList<PassosHanoi> stackArray;
     private int movAtual;
-    private final Color C1 = Color.YELLOW, C2 = Color.GREEN;  
+    private final int MAXSIZE = 10;
+    private double tam;
 
     @FXML
     private Label MoveTimes;
@@ -62,11 +57,11 @@ public class FXMLController implements Initializable {
     private void btStart(ActionEvent event) {
         hanoi.clearStacks();
         hanoi.gerarElementos(Integer.parseInt(capacidade.getValue().toString()));
-        stackArray = hanoi.resolver();
-        
+        stackArray = hanoi.resolver();     
+        this.tam = MAXSIZE / Double.parseDouble(capacidade.getValue().toString());
+
         //TOTAL DE MOVIMENTOS NECESSÁEIOS - > hanoi.getTotalMovimentosNecessarios();
         //DEFINIR VALOR PADRÃO PARA O TEMPO E O TOTAL DE PINOS
-
         Task<Void> exampleTask = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
@@ -99,16 +94,14 @@ public class FXMLController implements Initializable {
     private void setItemsListView(ListView listView, MyStack stack) {
         ObservableList<Button> pole = FXCollections.observableArrayList();
         MyStack<Integer> myStackA = MyStack.copy(stack);
+
         while (!myStackA.isEmpty()) {
-
             Button bt = new Button();
-
             int valorBotao = myStackA.pop();
-
-            bt.setScaleX(valorBotao * 0.95);
-            bt.setScaleY(valorBotao * 0.125);
             
             bt.setStyle("-fx-background-color: "+gencode()+";");
+            bt.setScaleX(valorBotao * tam);
+            bt.setScaleY(6 * 0.125);
             pole.add(0, bt);
         }
 
