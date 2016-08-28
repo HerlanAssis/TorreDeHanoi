@@ -12,20 +12,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ifrn.ed.hanoi.ui.FXMLController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ifrn.ed.hanoi.ui.FXMLController">
    <bottom>
       <HBox alignment="CENTER" prefHeight="0.0" prefWidth="600.0" spacing="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btStart" mnemonicParsing="false" onAction="#btStart" text="Start" />
+            <Button fx:id="btStart" mnemonicParsing="false" onAction="#btStart" stylesheets="@DarkTheme.css" text="Start" />
          </children>
       </HBox>
    </bottom>
    <center>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="poleA" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme.css" />
-            <ListView fx:id="poleB" prefHeight="200.0" prefWidth="200.0" />
-            <ListView fx:id="poleC" prefHeight="200.0" prefWidth="200.0" />
+            <ListView fx:id="poleA" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme_1.css" />
+            <ListView fx:id="poleB" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme_1.css" />
+            <ListView fx:id="poleC" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme_1.css" />
          </children>
       </HBox>
    </center>
@@ -45,7 +45,7 @@
                      </padding>
                   </Label>
                   <Label prefHeight="19.0" prefWidth="109.0" text="Visualizaçao:" />
-                  <ComboBox fx:id="time" prefHeight="26.0" prefWidth="81.0">
+                  <ComboBox fx:id="time" prefHeight="26.0" prefWidth="81.0" stylesheets="@DarkTheme.css">
                       <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="0.3" />

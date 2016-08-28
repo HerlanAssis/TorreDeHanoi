@@ -55,7 +55,6 @@ public class FXMLController implements Initializable {
         hanoi = new Hanoi();
     }
 
-
     @FXML
     private void btStart(ActionEvent event) {
         hanoi.clearStacks();
@@ -77,7 +76,14 @@ public class FXMLController implements Initializable {
                         }
                     });
                     
-                    int tempo=(Integer.parseInt(time.getValue().toString())*1000);
+                    int tempo;
+                    if (time.getValue().toString().equals("0.3")) {
+                        tempo= 100;
+                    }else if (time.getValue().toString().equals("0.5")){
+                        tempo= 400;
+                    }else{
+                        tempo=(Integer.parseInt(time.getValue().toString())*1000);
+                    }
                     Thread.sleep(tempo);
                 }
                 return null;
@@ -94,8 +100,14 @@ public class FXMLController implements Initializable {
     private void setItemsListView(ListView listView, MyStack stack) {
         ObservableList<Button> pole = FXCollections.observableArrayList();
         MyStack<Integer> myStackA = MyStack.copy(stack);
+        int valorDoBotao=0;
         while (!myStackA.isEmpty()) {
-            Button bt= new Button(String.valueOf(myStackA.pop()));
+            Button bt= new Button();
+            valorDoBotao=myStackA.pop();
+            
+            bt.setScaleX(valorDoBotao*0.25);
+            bt.setScaleY(valorDoBotao*0.125);
+            
             pole.add(0,bt);
         }
         listView.setRotate(180);
