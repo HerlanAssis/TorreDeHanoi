@@ -144,11 +144,9 @@ public class Hanoi implements Runnable {
     private void setItemsListView(ListView listView, MyStack stack) {
         ObservableList<String> pole = FXCollections.observableArrayList();
         MyStack<Integer> myStackA = MyStack.copy(stack);
-
         while (!myStackA.isEmpty()) {
             pole.add(String.valueOf(myStackA.pop()));
         }
-
         listView.setItems(pole);
     }
 
@@ -169,15 +167,14 @@ public class Hanoi implements Runnable {
                     moveHanoi(stackB, stackC);
                     break;
             }
-            totalMovimentosRealizados++;           
-
+            totalMovimentosRealizados++;
             setItemsListView(poleA, this.stackA);
             setItemsListView(poleB, this.stackB);
             setItemsListView(poleC, this.stackC);
-            
+
             try {
-                Thread.sleep(1*1000);
-                
+                Thread.sleep(1 * 1000);
+
                 //System.out.println("STACK A: " + stackA);
                 //System.out.println("STACK B: " + stackB);
                 //System.out.println("STACK C: " + stackC);
